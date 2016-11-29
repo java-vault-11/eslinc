@@ -60,11 +60,12 @@ dependencyManagement {
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // The production code uses the SLF4J logging API at compile time
-    compile 'org.springframework.boot:spring-boot:1.4.2.RELEASE'
+    //compile 'org.springframework.boot:spring-boot:1.4.2.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	//compile 'org.apache.commons:commons-dbcp2:2.1.1'    
     compile 'org.postgresql:postgresql'
-    compile 'org.springframework.cloud:spring-cloud-starter-bus-kafka'
+    //compile 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
+    compile 'org.apache.kafka:kafka-clients:0.10.1.0'
     //compile 'org.springframework.kafka:spring-kafka:1.1.1.RELEASE'
     //compile 'com.github.divolte:divolte-kafka-consumer:divolte-kafka-consumer-0.1'
     compile group: 'org.apache.avro', name: 'avro', version: '1.8.1'
