@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
+import com.linctronix.event.actor.TheOneActor;
+
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.Props;
 
 @Controller
 public class ConditionController {
@@ -41,12 +46,16 @@ public class ConditionController {
 
 		int numConsumers = 3;
 		String groupId = "taskGroup";
-		List<String> topics = Arrays.asList("collection1");
+		List<String> topics = Arrays.asList("collection");
 		ExecutorService executor = Executors.newFixedThreadPool(numConsumers);
+		
+		ActorSystem actor_system = ActorSystem.create("hello-world");
+		ActorRef theOneActor = actor_system.actorOf(Props.create(TheOneActor.class), "the-one");
 		
 		final List<ConsumerLoop> consumers = new ArrayList<>();
 		for (int i = 0; i < numConsumers; i++) {
 			ConsumerLoop consumer = new ConsumerLoop(i, groupId, topics);
+			consumer.setActor(theOneActor);
 			consumers.add(consumer);
 			executor.submit(consumer);
 		}
